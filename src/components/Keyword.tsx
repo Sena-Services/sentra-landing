@@ -1,21 +1,23 @@
 interface KeywordProps {
   word: string
-  definition: string
   index: number
   active: number
   setActive: (i: number) => void
+  onMouseLeave: () => void
+  color: string
+  decorationColor: string
 }
 
-export function Keyword({ word, definition, index, active, setActive }: KeywordProps) {
+export function Keyword({ word, index, active, setActive, onMouseLeave, color, decorationColor }: KeywordProps) {
   const isActive = index === active
   
   return (
     <span
       onMouseEnter={() => setActive(index)}
-      onMouseLeave={() => setActive(-1)}
+      onMouseLeave={onMouseLeave}
       className={`transition-colors duration-300 underline underline-offset-4 decoration-2 cursor-pointer
-        ${isActive ? 'text-sentra-apricotJet decoration-sentra-apricotJet font-semibold'
-                   : 'text-sentra-midnightDeck decoration-transparent'}`}
+        ${isActive ? `${color} ${decorationColor} font-semibold`
+                   : 'text-sentra-midnight-deck decoration-transparent'}`}
     >
       {word}
     </span>

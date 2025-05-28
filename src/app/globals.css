@@ -1,7 +1,23 @@
 @import "tailwindcss";
 
+@theme {
+  --color-sentra-apricot-jet: #E26F3C;
+  --color-sentra-midnight-deck: #16202B;
+  --color-sentra-travertine: #F9F4E8;
+  --color-sentra-dune-mist: #EFE7DC;
+  --color-sentra-ocean-route: #4A868C;
+  
+  --animate-fade-in: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 html, body {
-  @apply bg-sentra-travertine text-sentra-midnightDeck;
+  background-color: var(--color-sentra-travertine);
+  color: var(--color-sentra-midnight-deck);
 }
 
 html {
@@ -25,4 +41,10 @@ html {
     --background: #F9F4E8;
     --foreground: #16202B;
   }
+}
+
+body {
+  background: #F9F4E8;
+  color: #16202B;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Arial, sans-serif;
 }
