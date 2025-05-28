@@ -13,8 +13,9 @@ export function Keyword({ word, definition, index, active, setActive }: KeywordP
     <span
       onMouseEnter={() => setActive(index)}
       onMouseLeave={() => setActive(-1)}
-      className={`transition-colors duration-300 cursor-pointer
-        ${isActive ? 'text-sentra-apricotJet font-semibold' : 'text-sentra-midnightDeck'}`}
+      className={`transition-colors duration-300 underline underline-offset-4 decoration-2 cursor-pointer
+        ${isActive ? 'text-sentra-apricotJet decoration-sentra-apricotJet font-semibold'
+                   : 'text-sentra-midnightDeck decoration-transparent'}`}
     >
       {word}
     </span>

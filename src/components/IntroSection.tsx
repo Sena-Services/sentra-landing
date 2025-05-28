@@ -29,18 +29,19 @@ export default function IntroSection() {
   return (
     <section 
       id="intro" 
-      className="relative mx-auto flex max-w-7xl flex-col-reverse lg:flex-row items-center
-                 justify-between gap-10 py-32 px-6"
+      className="relative isolate flex flex-col-reverse lg:flex-row items-center
+                 justify-between mx-auto max-w-7xl px-6 lg:px-8
+                 min-h-screen py-24 lg:py-0"
     >
       {/* LEFT: copy block */}
       <div className="w-full lg:w-6/12">
-        <h1 className="text-5xl font-black text-sentra-midnightDeck mb-8">
+        <h1 className="text-4xl md:text-6xl font-black text-sentra-midnightDeck mb-10">
           What is Sentra?
         </h1>
 
         {/* Answer line with animated keywords */}
         <div 
-          className="text-xl leading-relaxed text-sentra-midnightDeck"
+          className="text-lg md:text-2xl leading-relaxed text-sentra-midnightDeck flex flex-wrap gap-1"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
@@ -88,10 +89,11 @@ export default function IntroSection() {
         </div>
 
         {/* Dynamic definition slot */}
-        <div className="mt-6 text-lg text-sentra-oceanRoute min-h-[5rem] transition-all duration-300">
+        <div className="mt-10 text-lg md:text-xl text-sentra-midnightDeck transition-all duration-300">
           {activeDefinition && (
-            <p className="animate-fade-in">
-              {activeDefinition}
+            <p>
+              <span className="text-sentra-apricotJet font-semibold">{tokens[activeIdx].word}:</span>&nbsp;
+              {tokens[activeIdx].definition}
             </p>
           )}
         </div>
@@ -99,14 +101,16 @@ export default function IntroSection() {
 
       {/* RIGHT: hero image */}
       <div className="w-full lg:w-5/12 flex justify-center">
-        <Image
-          src="/hero_image_1.png"
-          alt="Orange jet swooping over a teal globe through cream clouds"
-          width={480}
-          height={480}
-          priority
-          className="w-72 lg:w-[28rem] select-none pointer-events-none"
-        />
+        <div className="bg-sentra-travertine rounded-full p-4">
+          <Image
+            src="/hero_image_1.png"
+            alt="Orange jet swooping over a teal globe"
+            width={580}
+            height={580}
+            priority
+            className="w-64 sm:w-80 lg:w-[34rem] select-none pointer-events-none"
+          />
+        </div>
       </div>
     </section>
   )
