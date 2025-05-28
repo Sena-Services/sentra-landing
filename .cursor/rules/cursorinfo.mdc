@@ -1,0 +1,110 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Sentra Landing Page Project Snapshot
+
+## Overview
+
+This project is the landing page for Sentra, a B2B travel platform. The landing page is designed as a single-page scrolling website, with different sections highlighting various aspects of the Sentra platform.
+
+## Technology Stack
+
+*   **Framework**: Next.js (v15.3.2)
+*   **Language**: TypeScript (v5)
+*   **UI Library**: React (v19.0.0)
+*   **Styling**: Tailwind CSS (v4)
+*   **Animation**: Framer Motion (motion v12.15.0)
+*   **Icons**: Lucide React (v0.511.0)
+*   **Linting**: ESLint (v9)
+*   **Package Manager**: npm
+
+## Project Structure
+
+*   `src/app/`: Contains the main application routing and page logic.
+    *   `page.tsx`: The main entry point for the landing page, rendering different sections.
+    *   `layout.tsx`: The root layout component.
+    *   `globals.css`: Global styles for the application.
+*   `src/components/`: Contains reusable React components.
+    *   `NavBar.tsx`: The navigation bar component.
+    *   `IntroSection.tsx`: The first section of the landing page, explaining what Sentra is with interactive keyword highlighting.
+    *   `Keyword.tsx`: A component used within `IntroSection.tsx` to handle the display and interaction of highlighted keywords.
+    *   `FeaturesSection.tsx`: The features section with a left sidebar containing feature list and icons, and a right area for future data flow diagrams.
+*   `public/`: Static assets.
+*   `package.json`: Project dependencies and scripts.
+*   `next.config.ts`: Next.js configuration.
+*   `tailwind.config.ts` (expected, but not explicitly seen in `list_dir`): Tailwind CSS configuration.
+*   `tsconfig.json`: TypeScript configuration.
+
+## Current Development State
+
+*   The basic structure of the single-page scrolling website is in place.
+*   The `NavBar` and `IntroSection` components are fully implemented.
+*   The `IntroSection` includes the "What is Sentra?" question and answer, with a mechanism for highlighting keywords and showing their definitions. The interactive behavior (timed and hover-based highlighting) is implemented within `IntroSection.tsx` and `Keyword.tsx`.
+*   The `FeaturesSection` component is implemented with:
+    *   A left sidebar (10% width, configurable) containing a modern feature list with icons
+    *   Five features: Integrations, Automation, Communication, Reporting, and Workflows
+    *   Interactive selection states with hover effects
+    *   A right content area (90% width) currently blank, ready for future data flow diagrams
+    *   Uses Lucide React icons for feature representation
+*   Placeholder sections for "About Us" and "Book a Demo" exist in `src/app/page.tsx`.
+
+## Features Section Details
+
+The `FeaturesSection` component includes:
+*   **Left Sidebar Features**:
+    *   INTEGRATIONS (Puzzle icon)
+    *   AUTOMATION (Users icon)  
+    *   COMMUNICATION (MessageSquare icon)
+    *   REPORTING (BarChart3 icon)
+    *   WORKFLOWS (Workflow icon) - currently set as default active
+*   **Manual Controls**: All positioning, sizing, and colors are configurable via the MANUAL_CONTROLS object
+*   **Interactive States**: Click-based selection with visual feedback using Sentra brand colors
+*   **Right Area**: Reserved space for future data flow diagrams and animations
+
+## Making Changes
+
+1.  **Running the development server**:
+    ```bash
+    npm run dev
+    ```
+    This will start the Next.js development server, typically on `http://localhost:3000`.
+
+2.  **Adding new sections**:
+    *   Create a new component for the section in the `src/components/` directory.
+    *   Import and render this component in `src/app/page.tsx`.
+    *   If the section needs to be linked from the `NavBar`, update `src/components/NavBar.tsx` accordingly (e.g., adding an anchor link and corresponding `id` to the new section).
+
+3.  **Modifying existing sections**:
+    *   Locate the relevant component in `src/components/` (e.g., `IntroSection.tsx` for the intro, `FeaturesSection.tsx` for features).
+    *   Make the necessary changes to the component's JSX, logic, and styling.
+    *   Use the MANUAL_CONTROLS objects in each component for easy customization of layouts and styling.
+
+4.  **Customizing Features Section**:
+    *   Adjust the `leftWidth` and `rightWidth` in `MANUAL_CONTROLS` to change the sidebar proportion
+    *   Modify feature list in the `features` array to add/remove/change features
+    *   Update colors, spacing, and styling via the `MANUAL_CONTROLS` object
+
+5.  **Styling**:
+    *   Tailwind CSS utility classes are used for styling. Add or modify classes directly in the JSX.
+    *   Global styles can be added to `src/app/globals.css`.
+    *   Sentra brand colors are defined and available: `sentra-apricot-jet`, `sentra-midnight-deck`, `sentra-travertine`, `sentra-dune-mist`, `sentra-ocean-route`
+
+6.  **Interactivity and Animations**:
+    *   Framer Motion (`motion`) is available for animations.
+    *   Custom React hooks and state management (e.g., `useState`, `useEffect`) are used for component-level interactivity.
+    *   Lucide React icons are available for UI elements.
+
+7.  **Linting and Formatting**:
+    *   Run `npm run lint` to check for linting errors.
+    *   Ensure code formatting is consistent (consider adding Prettier if not already in use).
+
+## Next Steps (based on current progress)
+
+*   Implement data flow diagrams and animations for the right side of the Features section
+*   Add interactivity to the data flow diagrams (hover effects, click interactions)
+*   Implement the "About Us" and "Book a Demo" sections
+*   Enhance the NavBar to include proper linking to all sections
+
+This document provides a snapshot of the project. For more detailed information, refer to the specific files and components mentioned.

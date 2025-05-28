@@ -178,7 +178,7 @@ export default function IntroSection() {
             </div>
 
             {/* Dynamic definition slot with keyword label - ALWAYS reserve space to prevent jitter */}
-            <div className="min-h-[8rem] lg:min-h-[10rem]">
+            <div className="min-h-[12rem] lg:min-h-[16rem] xl:min-h-[22rem]">
               {activeToken && (
                 <div className={`${MANUAL_CONTROLS.definitionSize} leading-relaxed`}>
                   <span className={`${activeToken.color} font-bold underline underline-offset-4 decoration-2 ${activeToken.decorationColor} ${MANUAL_CONTROLS.definitionKeywordSize}`}>
