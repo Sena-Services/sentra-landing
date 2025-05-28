@@ -1,0 +1,25 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+im planning to build a landing page for my travel-tech company called sentra - best way to describe sentra is an all encompassing end to end crm/erp but much more platform for travel agencies to cater to all their tech needs. 
+
+ok so i want the whole site to be in one page scrolling downward section after seciton
+
+ok first section is what we call intro section
+
+what is sentra? is the question listed there and under that there is an answer under saying 
+
+Sentra is a lightweight, end-to-end, AI-centred B2B travel platform that caters to travel agencies of all sizes. 
+
+now the cool thing about this answer or a smiilar answer above is an example is that we will have the keywords all in a different format font color or whatever and will alternatively highlight them in order and when each is heiglighted. we will have a descriptive definition of what it means in context.
+
+what do we mean by lightweight? and we answer that. and it auto moves to the next keyword in a few seconds and then ig goes what do we mean by end to end and below what is sena and teh answer we will ask this question what do we mean by end to end and below that we will answer. 
+
+this also chagnes when we hover over teh keyword, and when we stop hovering it just goes back to timed changes. 
+
+i hope you have understood what wer tyring to build.
+
+
+this is only for the first section ; lets complete this and move onto next!

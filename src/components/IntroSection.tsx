@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Keyword } from './Keyword'
-import PlaneGlobeArt from './PlaneGlobeArt'
 
 const tokens = [
   { word: 'lightweight', definition: 'Cloud-native, zero-install—runs entirely in your browser.' },
@@ -29,7 +29,8 @@ export default function IntroSection() {
   return (
     <section 
       id="intro" 
-      className="relative flex flex-col-reverse lg:flex-row items-center gap-10 py-24 px-6 lg:px-12 max-w-7xl mx-auto min-h-screen"
+      className="relative mx-auto flex max-w-7xl flex-col-reverse lg:flex-row items-center
+                 justify-between gap-10 py-32 px-6"
     >
       {/* LEFT: copy block */}
       <div className="w-full lg:w-6/12">
@@ -96,9 +97,16 @@ export default function IntroSection() {
         </div>
       </div>
 
-      {/* RIGHT: plane + globe illustration */}
-      <div className="w-full lg:w-6/12 flex justify-center">
-        <PlaneGlobeArt className="w-60 lg:w-80" />
+      {/* RIGHT: hero image */}
+      <div className="w-full lg:w-5/12 flex justify-center">
+        <Image
+          src="/hero_image_1.png"
+          alt="Orange jet swooping over a teal globe through cream clouds"
+          width={480}
+          height={480}
+          priority
+          className="w-72 lg:w-[28rem] select-none pointer-events-none"
+        />
       </div>
     </section>
   )
