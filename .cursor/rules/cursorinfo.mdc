@@ -27,10 +27,10 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
     *   `layout.tsx`: The root layout component.
     *   `globals.css`: Global styles for the application.
 *   `src/components/`: Contains reusable React components.
-    *   `NavBar.tsx`: The navigation bar component.
-    *   `IntroSection.tsx`: The first section of the landing page, explaining what Sentra is with interactive keyword highlighting.
+    *   `NavBar.tsx`: The navigation bar component. Now includes a bottom border for visual separation.
+    *   `IntroSection.tsx`: The first section of the landing page (typically full screen height), explaining what Sentra is with interactive keyword highlighting.
     *   `Keyword.tsx`: A component used within `IntroSection.tsx` to handle the display and interaction of highlighted keywords.
-    *   `FeaturesSection.tsx`: The features section with a left sidebar containing feature list and icons, and a right area for future data flow diagrams.
+    *   `FeaturesSection.tsx`: The features section, designed to be more compact (e.g., `90vh`). It has a left sidebar and a right horizontal scrolling area for feature details. Spacing above this section is adjustable.
 *   `public/`: Static assets.
 *   `package.json`: Project dependencies and scripts.
 *   `next.config.ts`: Next.js configuration.
@@ -40,28 +40,32 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
 ## Current Development State
 
 *   The basic structure of the single-page scrolling website is in place.
-*   The `NavBar` and `IntroSection` components are fully implemented.
-*   The `IntroSection` includes the "What is Sentra?" question and answer, with a mechanism for highlighting keywords and showing their definitions. The interactive behavior (timed and hover-based highlighting) is implemented within `IntroSection.tsx` and `Keyword.tsx`.
-*   The `FeaturesSection` component is implemented with:
-    *   A left sidebar (10% width, configurable) containing a modern feature list with icons
-    *   Five features: Integrations, Automation, Communication, Reporting, and Workflows
-    *   Interactive selection states with hover effects
-    *   A right content area (90% width) currently blank, ready for future data flow diagrams
-    *   Uses Lucide React icons for feature representation
+*   The `NavBar` component is implemented and now has a bottom border.
+*   The `IntroSection` component is fully implemented and typically occupies the full screen height.
+*   The `FeaturesSection` component has been refactored for a more compact layout (e.g., `90vh` or adjustable height) with improved image sizing within its horizontal scroller:
+    *   A left sidebar (configurable width) containing a modern feature list with icons.
+    *   Five features: Integrations, Automation, Communication, Reporting, and Workflows.
+    *   Interactive selection states: Clicking a feature in the sidebar highlights it and scrolls the right content area to the corresponding feature's content.
+    *   A right content area (configurable width) that functions as a horizontal scroller. Each feature has a dedicated "slide" in this scroller, designed to fit within the section's constrained height.
+        *   "Integrations" slide displays `features1.png`.
+        *   "Automation" slide displays `features2.png`.
+        *   Other features show placeholder text.
+        *   Image display within slides is now more responsive to the available space.
+    *   Uses Lucide React icons for feature representation.
 *   Placeholder sections for "About Us" and "Book a Demo" exist in `src/app/page.tsx`.
 
 ## Features Section Details
 
-The `FeaturesSection` component includes:
+*   **Layout**: The section is designed to fit within a specific viewport height (e.g., `90vh`, configurable), with top/bottom padding for spacing from adjacent sections.
 *   **Left Sidebar Features**:
-    *   INTEGRATIONS (Puzzle icon)
-    *   AUTOMATION (Users icon)  
-    *   COMMUNICATION (MessageSquare icon)
-    *   REPORTING (BarChart3 icon)
-    *   WORKFLOWS (Workflow icon) - currently set as default active
-*   **Manual Controls**: All positioning, sizing, and colors are configurable via the MANUAL_CONTROLS object
-*   **Interactive States**: Click-based selection with visual feedback using Sentra brand colors
-*   **Right Area**: Reserved space for future data flow diagrams and animations
+    *   INTEGRATIONS (Puzzle icon) - Selecting this scrolls the right panel to its content, displaying `features1.png`.
+    *   AUTOMATION (Users icon) - Selecting this scrolls the right panel to its content, displaying `features2.png`.
+    *   COMMUNICATION (MessageSquare icon) - Selecting this scrolls the right panel to its placeholder content.
+    *   REPORTING (BarChart3 icon) - Selecting this scrolls the right panel to its placeholder content.
+    *   WORKFLOWS (Workflow icon) - Selecting this scrolls the right panel to its placeholder content. (Was previously default, now first feature is default).
+*   **Manual Controls**: All positioning, sizing (including image dimensions), and colors are configurable via the `MANUAL_CONTROLS` object.
+*   **Interactive States**: Click-based selection in the sidebar, with visual feedback (Sentra brand colors) and smooth horizontal scrolling in the right content area.
+*   **Right Area (Horizontal Scroller)**: Displays content (images or placeholders) for each feature in a horizontally scrollable view. The images are sized to be as large as possible while fitting within the constrained height of the section. Clicking a feature in the sidebar scrolls this area to the corresponding content.
 
 ## Making Changes
 
@@ -82,9 +86,11 @@ The `FeaturesSection` component includes:
     *   Use the MANUAL_CONTROLS objects in each component for easy customization of layouts and styling.
 
 4.  **Customizing Features Section**:
-    *   Adjust the `leftWidth` and `rightWidth` in `MANUAL_CONTROLS` to change the sidebar proportion
-    *   Modify feature list in the `features` array to add/remove/change features
-    *   Update colors, spacing, and styling via the `MANUAL_CONTROLS` object
+    *   Adjust the overall section height and padding in `FeaturesSection.tsx` (e.g., `className="h-[90vh] ... pt-8 pb-8"`).
+    *   Adjust the `leftWidth` and `rightWidth` in `MANUAL_CONTROLS` to change the sidebar proportion.
+    *   Modify the `features` array in `FeaturesSection.tsx` to add/remove/change features, including their `imageSrc` property.
+    *   Update image sizing using `imageMaxWidth` (e.g., `max-w-5xl`) and `imageMaxHeight` (e.g., `max-h-full`) in `MANUAL_CONTROLS`. Also adjust slide padding (e.g., `p-4`) for more image space.
+    *   Update colors, spacing, and styling via the `MANUAL_CONTROLS` object.
 
 5.  **Styling**:
     *   Tailwind CSS utility classes are used for styling. Add or modify classes directly in the JSX.
@@ -102,9 +108,10 @@ The `FeaturesSection` component includes:
 
 ## Next Steps (based on current progress)
 
-*   Implement data flow diagrams and animations for the right side of the Features section
-*   Add interactivity to the data flow diagrams (hover effects, click interactions)
-*   Implement the "About Us" and "Book a Demo" sections
-*   Enhance the NavBar to include proper linking to all sections
+*   Implement a horizontal ruler/navigation bar at the bottom of the Features section that indicates the current feature and allows scrolling between features.
+*   Populate the remaining feature slides in the Features section with their respective data flow diagrams or content.
+*   Add interactivity to the data flow diagrams (hover effects, click interactions) once implemented.
+*   Implement the "About Us" and "Book a Demo" sections.
+*   Enhance the NavBar to include proper linking to all sections.
 
 This document provides a snapshot of the project. For more detailed information, refer to the specific files and components mentioned.

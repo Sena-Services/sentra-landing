@@ -28,7 +28,7 @@ export default function NavBar() {
   }
 
   return (
-    <header className="sticky top-0 z-30 bg-sentra-travertine/90 backdrop-blur">
+    <header className="sticky top-0 z-30 bg-sentra-travertine/90 backdrop-blur border-b border-sentra-dune-mist">
       <nav className={`mx-auto flex max-w-7xl items-center justify-between ${NAVBAR_CONTROLS.navbarPadding} ${NAVBAR_CONTROLS.navbarHorizontal}`}>
         {/* logo block */}
         <Link href="#intro" className={`flex items-center ${NAVBAR_CONTROLS.logoGap}`}>
