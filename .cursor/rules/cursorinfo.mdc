@@ -28,8 +28,8 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
     *   `globals.css`: Global styles for the application.
 *   `src/components/`: Contains reusable React components.
     *   `NavBar.tsx`: The navigation bar component. Now includes a bottom border for visual separation.
-    *   `IntroSection.tsx`: The first section of the landing page (typically full screen height), explaining what Sentra is with interactive keyword highlighting.
-    *   `Keyword.tsx`: A component used within `IntroSection.tsx` to handle the display and interaction of highlighted keywords.
+    *   `IntroSection.tsx`: The first section of the landing page (typically full screen height), explaining what Sentra is with interactive keyword highlighting. The main answer block is styled to be more prominent, with larger text and no background, ensuring better vertical alignment of keywords.
+    *   `Keyword.tsx`: A component used within `IntroSection.tsx` to handle the display and interaction of highlighted keywords, featuring a Framer Motion animation for a background "unfill" effect on the active keyword.
     *   `FeaturesSection.tsx`: The features section, designed to be more compact (e.g., `90vh`). It has a left sidebar and a right horizontal scrolling area for feature details. Spacing above this section is adjustable.
 *   `public/`: Static assets.
 *   `package.json`: Project dependencies and scripts.
@@ -41,7 +41,7 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
 
 *   The basic structure of the single-page scrolling website is in place.
 *   The `NavBar` component is implemented and now has a bottom border.
-*   The `IntroSection` component is fully implemented and typically occupies the full screen height.
+*   The `IntroSection` component is fully implemented, typically occupies the full screen height, and features an enhanced answer block for prominence (larger text, no background, improved alignment) and an animated keyword highlighting mechanism.
 *   The `FeaturesSection` component has been refactored for a more compact layout (e.g., `90vh` or adjustable height) with improved image sizing within its horizontal scroller:
     *   A left sidebar (configurable width) containing a modern feature list with icons.
     *   Five features: Integrations, Automation, Communication, Reporting, and Workflows.
@@ -98,7 +98,7 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
     *   Sentra brand colors are defined and available: `sentra-apricot-jet`, `sentra-midnight-deck`, `sentra-travertine`, `sentra-dune-mist`, `sentra-ocean-route`
 
 6.  **Interactivity and Animations**:
-    *   Framer Motion (`motion`) is available for animations.
+    *   Framer Motion (`motion`) is available for animations, and is used in `Keyword.tsx` for an animated background effect.
     *   Custom React hooks and state management (e.g., `useState`, `useEffect`) are used for component-level interactivity.
     *   Lucide React icons are available for UI elements.
 
