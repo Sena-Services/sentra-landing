@@ -9,17 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        // display: ['"Space Grotesk"', "sans-serif"],
-        // body: ['"Plus Jakarta Sans"', "sans-serif"],
-        // inter: ['"Inter"', "sans-serif"],
         rockwell: ["Rockwell", "serif"],
+        "space-grotesk": ["SpaceGrotesk", "sans-serif"],
+        rockybilly: ["Rockybilly", "cursive"],
+        "rustic-roadway": ["RusticRoadway", "cursive"],
+        angelos: ["Angelos", "cursive"],
+        awesome: ["Awesome", "cursive"],
       },
       colors: {
-        "sentra-apricot-jet": "#F4A261",
+        "sentra-apricot-jet": "#E26F3C",
         "sentra-midnight-deck": "#264653",
         "sentra-travertine": "#E9C46A",
-        "sentra-dune-mist": "#2A9D8F",
-        "sentra-ocean-route": "#E76F51",
+        "sentra-dune-mist": "#EFE7DC",
+        "sentra-ocean-route": "#4A868C",
       },
     },
   },

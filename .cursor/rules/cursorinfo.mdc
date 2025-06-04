@@ -17,6 +17,7 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
 *   **Styling**: Tailwind CSS (v4)
 *   **Animation**: Framer Motion (motion v12.15.0)
 *   **Icons**: Lucide React (v0.511.0)
+*   **Custom Fonts**: Rockwell (local), Space Grotesk (local), Rockybilly (local), Plus Jakarta Sans, Inter (configured, currently Rockwell is primary for IntroSection answer, Space Grotesk for question, Rockybilly for question)
 *   **Linting**: ESLint (v9)
 *   **Package Manager**: npm
 
@@ -25,47 +26,54 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
 *   `src/app/`: Contains the main application routing and page logic.
     *   `page.tsx`: The main entry point for the landing page, rendering different sections.
     *   `layout.tsx`: The root layout component.
-    *   `globals.css`: Global styles for the application.
+    *   `globals.css`: Global styles for the application, including `@font-face` declarations for Rockwell, Space Grotesk, and Rockybilly.
 *   `src/components/`: Contains reusable React components.
-    *   `NavBar.tsx`: The navigation bar component. Now includes a bottom border for visual separation.
-    *   `IntroSection.tsx`: The first section of the landing page (typically full screen height), explaining what Sentra is with interactive keyword highlighting. The main answer block is styled to be more prominent, with larger text and no background, ensuring better vertical alignment of keywords.
-    *   `Keyword.tsx`: A component used within `IntroSection.tsx` to handle the display and interaction of highlighted keywords, featuring a Framer Motion animation for a background "unfill" effect on the active keyword.
-    *   `FeaturesSection.tsx`: The features section, designed to be more compact (e.g., `90vh`). It has a left sidebar and a right horizontal scrolling area for feature details. Spacing above this section is adjustable.
-*   `public/`: Static assets.
+    *   `NavBar.tsx`: The navigation bar component. Includes a bottom border.
+    *   `IntroSection.tsx`: The first section of the landing page.
+        *   Explains "What is Sentra?". The question uses the Space Grotesk font. The word "Sentra" is highlighted with a "rough" `ScribbleUnderline`.
+        *   The answer sentence uses the local Rockwell font. Keywords within the answer are bold, Rockwell font, `text-3xl`, and feature a "rough" style `ScribbleUnderline` whose color dynamically matches the keyword's text color.
+        *   The keyword definition (description appearing when a keyword is active) uses Rockwell font (medium weight, non-italic) and a standard text color (`text-sentra-midnight-deck`).
+        *   The keyword definition header (e.g., "lightweight:") matches the answer keywords in font (Rockwell), style (bold), and size (`text-3xl`). Its "rough" `ScribbleUnderline` also dynamically matches the keyword's text color.
+        *   A `tailwindToHexColorMap` is used to resolve Tailwind text color classes to hex values for the underlines.
+        *   Features interactive keywords with hover effects enabled, and timed rotation resumes when not hovering. The background "progress bar" animation on active keywords is commented out.
+        *   Layout and styling are highly configurable via `MANUAL_CONTROLS`.
+    *   `Keyword.tsx`: Component for keyword display and interaction within `IntroSection.tsx`. Keywords use Rockwell font, are bold, `text-3xl`, and have a "rough" `ScribbleUnderline`. The text color and underline color are dynamically set based on props (with underline color being a resolved hex value). The background animation effect is commented out.
+    *   `ScribbleUnderline.tsx`: Reusable component for adding hand-drawn style underlines. Now includes a `variant` prop (`default` or `keyword`) to allow for slightly different SVG positioning and sizing based on context.
+    *   `ScribbleDemo.tsx`: Demo component showcasing all scribble underline styles and customization options (temporarily added to main page).
+    *   `FeaturesSection.tsx`: Placeholder for features section (currently commented out in `page.tsx`).
+    *   `src/components/magicui/grid-pattern.tsx`: The `GridPattern` component from Magic UI, used for subtle background effects.
+*   `public/`: Static assets, including font files in `public/fonts/`.
 *   `package.json`: Project dependencies and scripts.
 *   `next.config.ts`: Next.js configuration.
-*   `tailwind.config.ts` (expected, but not explicitly seen in `list_dir`): Tailwind CSS configuration.
+*   `tailwind.config.ts`: Tailwind CSS configuration, including the `rockwell` font family and Sentra brand colors. Other display/body fonts are temporarily commented out for focused Rockwell testing.
 *   `tsconfig.json`: TypeScript configuration.
 
 ## Current Development State
 
 *   The basic structure of the single-page scrolling website is in place.
-*   The `NavBar` component is implemented and now has a bottom border.
-*   The `IntroSection` component is fully implemented, typically occupies the full screen height, and features an enhanced answer block for prominence (larger text, no background, improved alignment) and an animated keyword highlighting mechanism.
-*   The `FeaturesSection` component has been refactored for a more compact layout (e.g., `90vh` or adjustable height) with improved image sizing within its horizontal scroller:
-    *   A left sidebar (configurable width) containing a modern feature list with icons.
-    *   Five features: Integrations, Automation, Communication, Reporting, and Workflows.
-    *   Interactive selection states: Clicking a feature in the sidebar highlights it and scrolls the right content area to the corresponding feature's content.
-    *   A right content area (configurable width) that functions as a horizontal scroller. Each feature has a dedicated "slide" in this scroller, designed to fit within the section's constrained height.
-        *   "Integrations" slide displays `features1.png`.
-        *   "Automation" slide displays `features2.png`.
-        *   Other features show placeholder text.
-        *   Image display within slides is now more responsive to the available space.
-    *   Uses Lucide React icons for feature representation.
-*   Placeholder sections for "About Us" and "Book a Demo" exist in `src/app/page.tsx`.
+*   The `NavBar` component is implemented.
+*   The `IntroSection` component is largely complete:
+    *   The "What is Sentra?" question uses Space Grotesk font, with "Sentra" having a `ScribbleUnderline`.
+    *   The answer sentence is styled with the local Rockwell font. Keywords within are Rockwell, bold, `text-3xl`, with dynamically colored scribble underlines.
+    *   The keyword definition uses Rockwell font (medium weight, non-italic) with `text-sentra-midnight-deck` color. The definition header is styled to match the answer's keywords, including a dynamically colored scribble underline.
+    *   Keyword highlighting mechanism is implemented: keywords are always colored (text and underline dynamically matched), use Rockwell font, are bold, `text-3xl`. Hover and timed rotation animations are active. The animated background fill on keywords is commented out.
+    *   A color map (`tailwindToHexColorMap`) is used in `IntroSection.tsx` to provide hex colors to underlines.
+    *   Layout is responsive and heavily customizable via `MANUAL_CONTROLS`.
+*   The `Keyword.tsx` component ensures keywords are styled with Rockwell font, bold, `text-3xl`, and dynamically colored text and scribble underlines. The background animation is commented out.
+*   `ScribbleUnderline.tsx` now supports a `variant` prop for contextual styling adjustments.
+*   Local Rockwell font has been integrated and applied.
+*   Local Space Grotesk font has been integrated and applied via `@font-face` in `src/app/globals.css` from `public/fonts/Bungee,Playfair_Display,Space_Grotesk/Space_Grotesk/static/` (using static font files).
+*   Local Rockybilly font has been integrated and applied via `@font-face` in `src/app/globals.css` from `public/fonts/rockybilly/Rockybilly.ttf`.
+*   All three fonts (`font-rockwell`, `font-space-grotesk`, `font-rockybilly`) are defined in `tailwind.config.ts`.
+*   Other fonts (Plus Jakarta Sans, Inter) were previously configured; their `@import` in `globals.css` and definitions in `tailwind.config.ts` are currently commented out but can be re-enabled.
+*   Code across components like `IntroSection.tsx`, `Keyword.tsx`, `globals.css`, and `tailwind.config.ts` has been cleaned of unnecessary comments.
+*   The `FeaturesSection` and other planned sections ("About Us", "Book a Demo") exist as commented-out placeholders in `src/app/page.tsx`.
 
-## Features Section Details
+## Features Section Details (Planned - Currently Commented Out)
 
-*   **Layout**: The section is designed to fit within a specific viewport height (e.g., `90vh`, configurable), with top/bottom padding for spacing from adjacent sections.
-*   **Left Sidebar Features**:
-    *   INTEGRATIONS (Puzzle icon) - Selecting this scrolls the right panel to its content, displaying `features1.png`.
-    *   AUTOMATION (Users icon) - Selecting this scrolls the right panel to its content, displaying `features2.png`.
-    *   COMMUNICATION (MessageSquare icon) - Selecting this scrolls the right panel to its placeholder content.
-    *   REPORTING (BarChart3 icon) - Selecting this scrolls the right panel to its placeholder content.
-    *   WORKFLOWS (Workflow icon) - Selecting this scrolls the right panel to its placeholder content. (Was previously default, now first feature is default).
-*   **Manual Controls**: All positioning, sizing (including image dimensions), and colors are configurable via the `MANUAL_CONTROLS` object.
-*   **Interactive States**: Click-based selection in the sidebar, with visual feedback (Sentra brand colors) and smooth horizontal scrolling in the right content area.
-*   **Right Area (Horizontal Scroller)**: Displays content (images or placeholders) for each feature in a horizontally scrollable view. The images are sized to be as large as possible while fitting within the constrained height of the section. Clicking a feature in the sidebar scrolls this area to the corresponding content.
+*   **Layout**: Designed to fit within a specific viewport height (e.g., `90vh`, configurable), with top/bottom padding.
+*   **Left Sidebar Features**: Planned for interactive feature list with icons.
+*   **Right Area (Horizontal Scroller)**: Planned to display content for each feature.
 
 ## Making Changes
 
@@ -73,45 +81,19 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
     ```bash
     npm run dev
     ```
-    This will start the Next.js development server, typically on `http://localhost:3000`.
+2.  **Modifying `IntroSection.tsx`**:
+    *   Adjust text, keyword definitions, colors in the `tokens` array.
+    *   Fine-tune layout, sizing, and spacing using the `MANUAL_CONTROLS` object.
+    *   Keyword animations (hover and timed rotation) are now active by default. The `paused` state in `IntroSection.tsx` is initially `false`. The logic within `handleKeywordHover` and `handleKeywordLeave` is active.
+3.  **Font Management**:
+    *   Rockwell font is loaded via `@font-face` in `src/app/globals.css` from `public/fonts/Rockwell-Font/`.
+    *   Space Grotesk is loaded via `@font-face` in `src/app/globals.css` from `public/fonts/Bungee,Playfair_Display,Space_Grotesk/Space_Grotesk/static/` (using static font files).
+    *   Rockybilly font is loaded via `@font-face` in `src/app/globals.css` from `public/fonts/rockybilly/Rockybilly.ttf`.
+    *   All fonts (`font-rockwell`, `font-space-grotesk`, `font-rockybilly`) are defined in `tailwind.config.ts`.
+    *   Other fonts (Plus Jakarta Sans, Inter) were previously configured; their `@import` in `globals.css` and definitions in `tailwind.config.ts` are currently commented out but can be re-enabled.
 
-2.  **Adding new sections**:
-    *   Create a new component for the section in the `src/components/` directory.
-    *   Import and render this component in `src/app/page.tsx`.
-    *   If the section needs to be linked from the `NavBar`, update `src/components/NavBar.tsx` accordingly (e.g., adding an anchor link and corresponding `id` to the new section).
+## Styling
 
-3.  **Modifying existing sections**:
-    *   Locate the relevant component in `src/components/` (e.g., `IntroSection.tsx` for the intro, `FeaturesSection.tsx` for features).
-    *   Make the necessary changes to the component's JSX, logic, and styling.
-    *   Use the MANUAL_CONTROLS objects in each component for easy customization of layouts and styling.
-
-4.  **Customizing Features Section**:
-    *   Adjust the overall section height and padding in `FeaturesSection.tsx` (e.g., `className="h-[90vh] ... pt-8 pb-8"`).
-    *   Adjust the `leftWidth` and `rightWidth` in `MANUAL_CONTROLS` to change the sidebar proportion.
-    *   Modify the `features` array in `FeaturesSection.tsx` to add/remove/change features, including their `imageSrc` property.
-    *   Update image sizing using `imageMaxWidth` (e.g., `max-w-5xl`) and `imageMaxHeight` (e.g., `max-h-full`) in `MANUAL_CONTROLS`. Also adjust slide padding (e.g., `p-4`) for more image space.
-    *   Update colors, spacing, and styling via the `MANUAL_CONTROLS` object.
-
-5.  **Styling**:
-    *   Tailwind CSS utility classes are used for styling. Add or modify classes directly in the JSX.
-    *   Global styles can be added to `src/app/globals.css`.
-    *   Sentra brand colors are defined and available: `sentra-apricot-jet`, `sentra-midnight-deck`, `sentra-travertine`, `sentra-dune-mist`, `sentra-ocean-route`
-
-6.  **Interactivity and Animations**:
-    *   Framer Motion (`motion`) is available for animations, and is used in `Keyword.tsx` for an animated background effect.
-    *   Custom React hooks and state management (e.g., `useState`, `useEffect`) are used for component-level interactivity.
-    *   Lucide React icons are available for UI elements.
-
-7.  **Linting and Formatting**:
-    *   Run `npm run lint` to check for linting errors.
-    *   Ensure code formatting is consistent (consider adding Prettier if not already in use).
-
-## Next Steps (based on current progress)
-
-*   Implement a horizontal ruler/navigation bar at the bottom of the Features section that indicates the current feature and allows scrolling between features.
-*   Populate the remaining feature slides in the Features section with their respective data flow diagrams or content.
-*   Add interactivity to the data flow diagrams (hover effects, click interactions) once implemented.
-*   Implement the "About Us" and "Book a Demo" sections.
-*   Enhance the NavBar to include proper linking to all sections.
-
-This document provides a snapshot of the project. For more detailed information, refer to the specific files and components mentioned.
+*   Tailwind CSS utility classes are used extensively.
+*   Global styles and `@font-face` rules are in `src/app/globals.css`.
+*   Sentra brand colors are defined in `

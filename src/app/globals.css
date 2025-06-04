@@ -1,6 +1,67 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;1,400;1,500&family=Plus+Jakarta+Sans:wght@500&family=Space+Grotesk:wght@600&display=swap'); */
 
 @font-face {
+  font-family: "Rockybilly";
+  src: url("/fonts/rockybilly/Rockybilly.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "RusticRoadway";
+  src: url("/fonts/rustic-roadway-personal-use/RusticRoadway.otf")
+    format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Angelos";
+  src: url("/fonts/angelos-personal-use/Angelos.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Awesome";
+  src: url("/fonts/awesome/Awesome.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("/fonts/Bungee,Playfair_Display,Space_Grotesk/Space_Grotesk/static/SpaceGrotesk-Regular.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("/fonts/Bungee,Playfair_Display,Space_Grotesk/Space_Grotesk/static/SpaceGrotesk-Medium.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("/fonts/Bungee,Playfair_Display,Space_Grotesk/Space_Grotesk/static/SpaceGrotesk-SemiBold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url("/fonts/Bungee,Playfair_Display,Space_Grotesk/Space_Grotesk/static/SpaceGrotesk-Bold.ttf")
+    format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
   font-family: Rockwell;
   src: url("/fonts/Rockwell-Font/ROCK.TTF") format("truetype");
   font-weight: normal;
@@ -19,7 +80,37 @@
 /* Temporary test rule for Rockwell font */
 .font-rockwell {
   font-family: Rockwell, serif !important;
-  background-color: yellow !important; /* This will make it obvious if the rule is applied */
+  background-color: transparent !important;
+}
+
+/* Test rule for SpaceGrotesk font */
+.font-space-grotesk {
+  font-family: SpaceGrotesk, sans-serif !important;
+  background-color: transparent !important;
+}
+
+/* Test rule for Rockybilly font */
+.font-rockybilly {
+  font-family: Rockybilly, cursive !important;
+  background-color: transparent !important;
+}
+
+/* Test rule for Rustic Roadway font */
+.font-rustic-roadway {
+  font-family: RusticRoadway, cursive !important;
+  background-color: transparent !important;
+}
+
+/* Test rule for Angelos font */
+.font-angelos {
+  font-family: Angelos, cursive !important;
+  background-color: transparent !important;
+}
+
+/* Test rule for Awesome font */
+.font-awesome {
+  font-family: Awesome, cursive !important;
+  background-color: transparent !important;
 }
 
 @theme {

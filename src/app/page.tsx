@@ -4,9 +4,10 @@ import FeaturesSection from "@/components/FeaturesSection";
 
 export default function Home() {
   return (
-    <>
+    <main className="">
       <NavBar />
       <IntroSection />
+
       {/* <FeaturesSection /> */}
 
       {/* <section id="about" className="py-20 px-6 max-w-7xl mx-auto">
@@ -18,6 +19,6 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-sentra-midnight-deck mb-8">Book a Demo</h2>
         <p className="text-sentra-midnight-deck">Demo booking section coming soon...</p>
       </section> */}
-    </>
+    </main>
   );
 }
