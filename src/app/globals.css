@@ -121,6 +121,11 @@
   --color-sentra-ocean-route: #4a868c;
 
   --animate-fade-in: fadeIn 0.3s ease-in-out;
+
+  /* MAJOR THEMES
+  --color-sentra-apricot-jet: #E26F3C;
+  --color-sentra-dune-mist: #EFE7DC;
+  --color-sentra-ocean-route: #4A868C; */
 }
 
 @keyframes fadeIn {
@@ -136,6 +141,7 @@
 
 html,
 body {
+  min-height: 100%;
   background-color: var(--color-sentra-travertine);
   color: var(--color-sentra-midnight-deck);
 }
@@ -167,4 +173,19 @@ body {
   background: #f9f4e8;
   color: #16202b;
   /* font-family will be handled by Tailwind utility classes and base styles */
+}
+
+/* Line clamp utilities for text truncation */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

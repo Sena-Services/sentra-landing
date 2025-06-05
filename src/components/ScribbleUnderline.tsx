@@ -12,7 +12,7 @@ interface ScribbleUnderlineProps {
   strokeWidth?: number;
   opacity?: number;
   className?: string;
-  variant?: "default" | "keyword";
+  variant?: "default" | "keyword" | "features";
 }
 
 const scribblePaths = {
@@ -42,6 +42,8 @@ export default function ScribbleUnderline({
   const svgClassName =
     variant === "keyword"
       ? "absolute -bottom-[-.05rem] -left-1 w-[115%] h-[0.35em] pointer-events-none"
+      : variant === "features"
+      ? "absolute -bottom-2 -left-2 w-[115%] h-[0.25em] pointer-events-none"
       : "absolute -bottom-3 -left-2 w-[140%] h-[0.4em] pointer-events-none";
 
   return (

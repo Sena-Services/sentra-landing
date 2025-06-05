@@ -1,8 +1,13 @@
 ---
 description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
+# Sentra Landing Page Project Snapshot
+
+## Overview
+
+This project is the landing page for Sentra, a B2B travel platform. The landing page is designed as a single-page scrolling website, with different sections highlighting various aspects of the Sentra platform.
 # Sentra Landing Page Project Snapshot
 
 ## Overview
@@ -31,21 +36,23 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
     *   `NavBar.tsx`: The navigation bar component. Includes a bottom border.
     *   `IntroSection.tsx`: The first section of the landing page.
         *   Explains "What is Sentra?". The question uses the Space Grotesk font. The word "Sentra" is highlighted with a "rough" `ScribbleUnderline`.
-        *   The answer sentence uses the local Rockwell font. Keywords within the answer are bold, Rockwell font, `text-3xl`, and feature a "rough" style `ScribbleUnderline` whose color dynamically matches the keyword's text color.
+        *   The answer sentence uses the local Rockwell font. Keywords within the answer are bold, Rockwell font, and `text-3xl`. The `ScribbleUnderline` (stroke 5, color matched to text) is always rendered but its opacity is 0 for inactive keywords and 0.9 for active/hovered ones to provide a highlight effect without layout shift.
         *   The keyword definition (description appearing when a keyword is active) uses Rockwell font (medium weight, non-italic) and a standard text color (`text-sentra-midnight-deck`).
-        *   The keyword definition header (e.g., "lightweight:") matches the answer keywords in font (Rockwell), style (bold), and size (`text-3xl`). Its "rough" `ScribbleUnderline` also dynamically matches the keyword's text color.
+        *   The keyword definition header (e.g., "lightweight:") matches the answer keywords in font (Rockwell), style (bold), and size (`text-3xl`). Its "rough" `ScribbleUnderline` (stroke 7) also dynamically matches the keyword's text color and is always visible.
+        *   Token colors for "AI-centred" (now `text-sentra-ocean-route`) and "B2B" (now `text-sentra-apricot-jet`) updated.
         *   A `tailwindToHexColorMap` is used to resolve Tailwind text color classes to hex values for the underlines.
         *   Features interactive keywords with hover effects enabled, and timed rotation resumes when not hovering. The background "progress bar" animation on active keywords is commented out.
         *   Layout and styling are highly configurable via `MANUAL_CONTROLS`.
-    *   `Keyword.tsx`: Component for keyword display and interaction within `IntroSection.tsx`. Keywords use Rockwell font, are bold, `text-3xl`, and have a "rough" `ScribbleUnderline`. The text color and underline color are dynamically set based on props (with underline color being a resolved hex value). The background animation effect is commented out.
+    *   `Keyword.tsx`: Component for keyword display and interaction within `IntroSection.tsx`. Keywords use Rockwell font, are bold, and a constant `text-3xl`. The `ScribbleUnderline` (stroke 5) is always rendered; its opacity is conditional (0 for inactive, 0.9 for active) to highlight the active keyword without causing layout jitter. The text color and underline color (for active state) are dynamically set. The background animation effect is commented out.
     *   `ScribbleUnderline.tsx`: Reusable component for adding hand-drawn style underlines. Now includes a `variant` prop (`default` or `keyword`) to allow for slightly different SVG positioning and sizing based on context.
     *   `ScribbleDemo.tsx`: Demo component showcasing all scribble underline styles and customization options (temporarily added to main page).
     *   `FeaturesSection.tsx`: Placeholder for features section (currently commented out in `page.tsx`).
+    *   `MarketingFeatureContent.tsx`: Displays detailed information about the "Marketing" feature within the `FeaturesSection`. It lists various marketing tools and services offered by Sentra in a compact grid layout (2 columns on mobile, 4 columns on larger screens) with icons and descriptions. The component now includes the marketing.png image as a subtle background overlay and fits within the features section without scrolling. Text content uses line-clamp utilities for proper truncation.
     *   `src/components/magicui/grid-pattern.tsx`: The `GridPattern` component from Magic UI, used for subtle background effects.
 *   `public/`: Static assets, including font files in `public/fonts/`.
 *   `package.json`: Project dependencies and scripts.
 *   `next.config.ts`: Next.js configuration.
-*   `tailwind.config.ts`: Tailwind CSS configuration, including the `rockwell` font family and Sentra brand colors. Other display/body fonts are temporarily commented out for focused Rockwell testing.
+*   `tailwind.config.ts`: Tailwind CSS configuration, including the `rockwell` font family and Sentra brand colors (apricot-jet: `#E26F3C`, midnight-deck: `#264653`, travertine: `#E9C46A`, dune-mist: `#EFE7DC`, ocean-route: `#4A868C`). Other display/body fonts are temporarily commented out for focused Rockwell testing.
 *   `tsconfig.json`: TypeScript configuration.
 
 ## Current Development State
@@ -54,26 +61,33 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
 *   The `NavBar` component is implemented.
 *   The `IntroSection` component is largely complete:
     *   The "What is Sentra?" question uses Space Grotesk font, with "Sentra" having a `ScribbleUnderline`.
-    *   The answer sentence is styled with the local Rockwell font. Keywords within are Rockwell, bold, `text-3xl`, with dynamically colored scribble underlines.
-    *   The keyword definition uses Rockwell font (medium weight, non-italic) with `text-sentra-midnight-deck` color. The definition header is styled to match the answer's keywords, including a dynamically colored scribble underline.
-    *   Keyword highlighting mechanism is implemented: keywords are always colored (text and underline dynamically matched), use Rockwell font, are bold, `text-3xl`. Hover and timed rotation animations are active. The animated background fill on keywords is commented out.
+    *   The answer sentence is styled with the local Rockwell font. All keywords are Rockwell, bold, `text-3xl`. Underlines (stroke 5) for keywords are always rendered but only visible (opacity 0.9) for active/hovered states to highlight the active keyword and reduce layout shift.
+    *   The keyword definition uses Rockwell font (medium weight, non-italic) with `text-sentra-midnight-deck` color. The definition header is styled to match the answer's keywords (Rockwell, bold, `text-3xl`), including a dynamically colored scribble underline (stroke 7) that is always visible.
+    *   Keyword highlighting mechanism is implemented: keywords are always colored (text and underline dynamically matched for active state). Hover and timed rotation animations are active. The animated background fill on keywords is commented out.
+    *   Token colors for "AI-centred" and "B2B" updated in the `tokens` array.
     *   A color map (`tailwindToHexColorMap`) is used in `IntroSection.tsx` to provide hex colors to underlines.
     *   Layout is responsive and heavily customizable via `MANUAL_CONTROLS`.
-*   The `Keyword.tsx` component ensures keywords are styled with Rockwell font, bold, `text-3xl`, and dynamically colored text and scribble underlines. The background animation is commented out.
+*   The `Keyword.tsx` component ensures keywords are styled with Rockwell font, bold, and a constant `text-3xl`. The `ScribbleUnderline` (stroke 5) is always present but its visibility (opacity) depends on the active state to highlight the active keyword and stabilize layout. Dynamically colored text and (visible) underlines. The background animation is commented out.
 *   `ScribbleUnderline.tsx` now supports a `variant` prop for contextual styling adjustments.
 *   Local Rockwell font has been integrated and applied.
 *   Local Space Grotesk font has been integrated and applied via `@font-face` in `src/app/globals.css` from `public/fonts/Bungee,Playfair_Display,Space_Grotesk/Space_Grotesk/static/` (using static font files).
 *   Local Rockybilly font has been integrated and applied via `@font-face` in `src/app/globals.css` from `public/fonts/rockybilly/Rockybilly.ttf`.
 *   All three fonts (`font-rockwell`, `font-space-grotesk`, `font-rockybilly`) are defined in `tailwind.config.ts`.
+*   Sentra brand colors in `tailwind.config.ts` and the corresponding `tailwindToHexColorMap` in `IntroSection.tsx` have been updated to ensure keyword text and underline colors match (apricot-jet: `#E26F3C`, dune-mist: `#EFE7DC`, ocean-route: `#4A868C`).
 *   Other fonts (Plus Jakarta Sans, Inter) were previously configured; their `@import` in `globals.css` and definitions in `tailwind.config.ts` are currently commented out but can be re-enabled.
 *   Code across components like `IntroSection.tsx`, `Keyword.tsx`, `globals.css`, and `tailwind.config.ts` has been cleaned of unnecessary comments.
 *   The `FeaturesSection` and other planned sections ("About Us", "Book a Demo") exist as commented-out placeholders in `src/app/page.tsx`.
+*   The "Marketing" feature within `FeaturesSection.tsx` now displays detailed content from `MarketingFeatureContent.tsx`.
+*   A hydration mismatch warning caused by browser extensions has been addressed by adding `suppressHydrationWarning={true}` to the `<html>` tag in `src/app/layout.tsx`.
 
 ## Features Section Details (Planned - Currently Commented Out)
 
 *   **Layout**: Designed to fit within a specific viewport height (e.g., `90vh`, configurable), with top/bottom padding.
 *   **Left Sidebar Features**: Planned for interactive feature list with icons.
 *   **Right Area (Horizontal Scroller)**: Planned to display content for each feature.
+    *   Content for the "Marketing" feature is implemented in `MarketingFeatureContent.tsx` and displayed when "Marketing" is active. It features a compact grid layout (2x4 columns) that fits within the viewport without scrolling, includes the marketing.png background image, and lists various marketing tools and services.
+*   **Background & Alignment**: The `FeaturesSection` background has been made transparent and its `z-index` adjusted to ensure a global grid pattern (defined in `page.tsx`) is visible behind it. The left alignment of `FeaturesSection` content is now consistent with `IntroSection` via a shared padding wrapper in `page.tsx`.
+*   **Vertical Spacing**: The vertical space between `IntroSection` and `FeaturesSection` is configurable via `PAGE_MANUAL_CONTROLS.featuresSectionVerticalOffset` in `page.tsx`.
 
 ## Making Changes
 
@@ -96,4 +110,5 @@ This project is the landing page for Sentra, a B2B travel platform. The landing 
 
 *   Tailwind CSS utility classes are used extensively.
 *   Global styles and `@font-face` rules are in `src/app/globals.css`.
-*   Sentra brand colors are defined in `
+*   Sentra brand colors are defined in `tailwind.config.ts` (apricot-jet: `#E26F3C`, midnight-deck: `#264653`, travertine: `#E9C46A`, dune-mist: `#EFE7DC`, ocean-route: `#4A868C`).
+*   Line-clamp utilities (.line-clamp-2, .line-clamp-3) are defined in `globals.css` for text truncation.

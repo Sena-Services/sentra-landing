@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Keyword } from "./Keyword";
 import ScribbleUnderline from "./ScribbleUnderline";
-import { GridPattern } from "@/components/magicui/grid-pattern";
 
 const tokens = [
   {
@@ -82,7 +81,7 @@ export default function IntroSection() {
   const MANUAL_CONTROLS = {
     imageSrc: "/hero2.png",
     // LEFT CONTENT POSITIONING
-    leftVertical: "mt-[3rem] lg:mt-[3rem] xl:mt-[1rem] 2xl:mt-[-4rem] ", // Move left content up/down: 'mt-[-4rem]' (up), 'mt-[2rem]' (down)
+    leftVertical: "mt-[3rem] lg:mt-[3rem] xl:mt-[4rem] 2xl:mt-[-4rem] ", // Move left content up/down: 'mt-[-4rem]' (up), 'mt-[2rem]' (down)
     leftHorizontal: "ml-0 lg:ml-[5rem] xl:ml-[1.5rem] 2xl:ml-[5rem]", // Move left content left/right: 'ml-[-2rem]' (left), 'ml-[2rem]' (right)
 
     // RIGHT IMAGE POSITIONING
@@ -126,15 +125,6 @@ export default function IntroSection() {
 
   return (
     <section id="intro" className="relative isolate h-screen">
-      <GridPattern
-        width={40}
-        height={40}
-        x={-5}
-        y={-5}
-        className="absolute inset-0 h-full w-full fill-gray-900/30 stroke-gray-400/7 [mask-image:linear-gradient(to_bottom_right)] pointer-events-none z-15"
-
-        // className="absolute inset-0 h-full w-full fill-gray-400/100 stroke-gray-400/100 pointer-events-none "
-      />
       <div className="h-full grid lg:grid-cols-2 items-start lg:items-center">
         <div
           className={`relative z-20 mx-auto max-w-7xl px-6 lg:pl-8 w-full ${MANUAL_CONTROLS.leftWidth}`}
