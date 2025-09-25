@@ -106,7 +106,7 @@ export default function IntroSection() {
   const MANUAL_CONTROLS = {
     imageSrc: "/hero2.png",
     // LEFT CONTENT POSITIONING
-    leftVertical: "mt-6 md:mt-8 lg:mt-10", // Push content down from sticky navbar
+    leftVertical: "mt-0 md:mt-0 lg:mt-0", // Avoid negative offset to not tuck under navbar
     leftHorizontal: "ml-0 lg:ml-[5rem] xl:ml-[1.5rem] 2xl:ml-[5rem]", // Move left content left/right: 'ml-[-2rem]' (left), 'ml-[2rem]' (right)
 
     // RIGHT IMAGE POSITIONING
@@ -118,20 +118,20 @@ export default function IntroSection() {
     rightWidth: "lg:w-[80%]", // Right section width: 'lg:w-[60%]', 'lg:w-[50%]', etc.
 
     // LEFT CONTENT SIZES
-    titleSize: "text-2xl md:text-6xl lg:text-4xl", // Main title size: 'text-3xl md:text-5xl lg:text-6xl' (smaller), 'text-5xl md:text-7xl lg:text-8xl' (larger)
-    descriptionSize: "text-xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-4xl", // Description text size: 'text-base md:text-xl lg:text-2xl' (smaller), 'text-xl md:text-3xl lg:text-4xl' (larger)
-    definitionSize: "text-lg md:text-xl lg:text-2xl", // Definition text size: 'text-base md:text-lg lg:text-xl' (smaller), 'text-xl md:text-2xl lg:text-3xl' (larger)
+    titleSize: "text-base sm:text-3xl md:text-4xl lg:text-5xl", // Smaller default, scales up progressively
+    descriptionSize: "text-base sm:text-lg md:text-2xl lg:text-3xl", // Responsive description sizes
+    definitionSize: "text-base sm:text-lg md:text-xl lg:text-2xl", // Responsive definition sizes
     definitionKeywordSize: "text-xl lg:text-2xl", // DEPRECATED by direct styling, kept for reference
     definitionStyle: "font-medium", // REMOVED italic, kept for reference
-    titleMargin: "mb-8 md:mb-10 lg:mb-12", // More space below the title
-    descriptionMargin: "mt-6 mb-2 md:mt-8 md:mb-3 lg:mt-10 lg:mb-4", // Bring description closer to definition
-    definitionSpacing: "mt-3", // Space between keyword and definition: 'mt-2' (smaller), 'mt-4' (larger)
+    titleMargin: "mb-4 md:mb-6 lg:mb-8", // Tighter to reduce top whitespace
+    descriptionMargin: "mt-4 mb-4 md:mt-6 md:mb-6 lg:mt-8 lg:mb-8", // Balanced spacing
+    definitionSpacing: "mt-2 md:mt-3", // Slightly tighter on mobile
 
     // IMAGE SIZES
     imageSize: "w-50 sm:w-50 lg:w-[800px] xl:w-[800px] 2xl:w-[800px]", // Responsive image sizes
     imagePadding: "p-2 lg:p-4", // E.g. \'p-1\', \'p-6\'
     contentPadding: "lg:pr-0", // E.g. \'lg:pr-8\', \'lg:pr-16\'
-    answerLineHeight: "leading-relaxed", // E.g. leading-snug, leading-normal
+    answerLineHeight: "leading-normal sm:leading-relaxed", // Tighter on mobile, relaxed above
   };
 
   const handleKeywordHover = (index: number) => {
@@ -149,10 +149,10 @@ export default function IntroSection() {
   };
 
   return (
-    <section id="intro" className="relative isolate h-full overflow-hidden">
-      <div className="h-full flex items-center justify-center w-full">
+    <section id="intro" className="relative isolate h-full overflow-hidden pt-14 sm:pt-16 scroll-mt-16 sm:scroll-mt-20">
+      <div className="h-full flex items-start sm:items-center justify-center w-full">
         <div
-          className={`relative z-20 mx-auto max-w-4xl px-6 w-full text-center`}
+          className={`relative z-20 mx-auto px-6 w-full text-center md:text-center max-w-5xl lg:max-w-6xl xl:max-w-7xl`}
         >
           <div
             className={`${MANUAL_CONTROLS.contentPadding} ${MANUAL_CONTROLS.leftVertical} ${MANUAL_CONTROLS.leftHorizontal}`}
@@ -170,7 +170,7 @@ export default function IntroSection() {
                 className="pb-2"
                 variant="default"
               >
-                <span className="text-sentra-apricot-jet text-[1.8em]">
+                <span className="text-sentra-apricot-jet text-[clamp(2.25rem,8vw,4.5rem)] md:text-[clamp(2.75rem,6vw,5rem)] lg:text-[clamp(3rem,5vw,5.25rem)] xl:text-[clamp(3.25rem,4.5vw,5.5rem)] whitespace-nowrap leading-tight">
                   Waygent
                 </span>
               </ScribbleUnderline>

@@ -10,7 +10,7 @@ export default function NavBar() {
   // 🎯 NAVBAR MANUAL CONTROLS - Adjust these values to control navbar positioning and spacing
   const NAVBAR_CONTROLS = {
     // NAVBAR POSITIONING & SPACING
-    navbarPadding: "py-0.5", // Navbar height: 'py-0.5' (smaller), 'py-6' (taller)
+    navbarPadding: "py-0.5", // keep compact
 
     // LOGO CONTROLS
     logoGap: "gap-[.005rem]", // Space between logo and text: 'gap-1', 'gap-4', etc.
@@ -18,8 +18,8 @@ export default function NavBar() {
     logoTextSize: "text-xl", // Logo text size: 'text-xl', 'text-3xl', etc.
 
     // NAVIGATION SPACING
-    navLinksGap: "gap-10", // Space between nav links: 'gap-6', 'gap-12', etc.
-    navToButtonGap: "gap-10", // Space between nav and CTA button: 'gap-6', 'gap-12', etc.
+    navLinksGap: "gap-6", // tighter on small screens
+    navToButtonGap: "gap-4", // reduce button spacing
 
     // BUTTON STYLING
     buttonPadding: "py-1.5 px-4", // CTA button size: 'py-2 px-4' (smaller), 'py-3 px-8' (larger)
@@ -29,7 +29,7 @@ export default function NavBar() {
   return (
     <header className="sticky top-0 z-30 w-full">
       <nav
-        className={`flex items-center justify-between ${NAVBAR_CONTROLS.navbarPadding} px-6 lg:px-8 bg-waygent-light-blue border border-waygent-light-blue border-t-0 rounded-b-3xl shadow-lg backdrop-blur-sm`}
+        className={`flex items-center justify-between ${NAVBAR_CONTROLS.navbarPadding} px-3 sm:px-6 lg:px-8 bg-waygent-light-blue border border-waygent-light-blue border-t-0 rounded-b-3xl shadow-lg backdrop-blur-sm`}
         style={{
           boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
           margin: '0 1rem 0 1rem'
@@ -38,11 +38,11 @@ export default function NavBar() {
         {/* logo block */}
         <Link
           href="#intro"
-          className={`flex items-center ${NAVBAR_CONTROLS.logoGap} px-3 py-1.5 rounded-lg transition-all duration-300 ease-out hover:bg-white/20 hover:shadow-sm`}
+          className={`flex items-center ${NAVBAR_CONTROLS.logoGap} px-2 sm:px-3 py-1.5 rounded-lg transition-all duration-300 ease-out hover:bg-white/20 hover:shadow-sm`}
         >
-          <Image src="/logo.png" width={40} height={40} alt="Waygent logo" />
+          <Image src="/logo.png" width={28} height={28} alt="Waygent logo" className="sm:w-[32px] sm:h-[32px] md:w-[36px] md:h-[36px]" />
           <span
-            className={`${NAVBAR_CONTROLS.logoTextSize}  font-rockwell text-waygent-text-primary`}
+            className={`text-base sm:${NAVBAR_CONTROLS.logoTextSize}  font-rockwell text-waygent-text-primary`}
           >
             Waygent
           </span>
@@ -66,11 +66,11 @@ export default function NavBar() {
           </ul>
 
           {/* CTA Buttons */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Login Button */}
             <Link
-              href="#login"
-              className={`inline-flex items-center justify-center px-4 py-2 h-8 rounded-lg transition-all duration-300 ease-out
+              href="/login"
+              className={`inline-flex items-center justify-center px-3 py-1.5 h-7 rounded-md transition-all duration-300 ease-out
                          whitespace-nowrap text-sm font-medium border border-gray-300
                          bg-transparent text-gray-600 cursor-pointer outline-none relative transform translate-y-0
                          shadow-none leading-none font-sans hover:bg-gray-50 hover:text-gray-800
@@ -87,8 +87,8 @@ export default function NavBar() {
 
             {/* Sign Up Button */}
             <Link
-              href="#signup"
-              className={`inline-flex items-center justify-center px-4 py-2 h-8 rounded-lg transition-all duration-300 ease-out
+              href="/signup"
+              className={`inline-flex items-center justify-center px-3 py-1.5 h-7 rounded-md transition-all duration-300 ease-out
                          whitespace-nowrap text-sm font-medium border-2 border-waygent-orange
                          bg-waygent-orange text-white cursor-pointer outline-none relative transform translate-y-0
                          shadow-sm leading-none font-sans hover:bg-waygent-orange hover:border-waygent-orange
@@ -101,7 +101,7 @@ export default function NavBar() {
               }}
             >
               <div className="flex items-center gap-1.5">
-                <div className="w-4 h-4 flex-shrink-0 transition-all duration-300 ease-out">
+                <div className="w-4 h-4 flex-shrink-0 transition-all duration-300 ease-out hidden xs:block sm:block">
                   <svg className="w-4 h-4 transition-all duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                   </svg>

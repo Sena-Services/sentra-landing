@@ -32,20 +32,20 @@ export function Keyword({
       onMouseEnter={() => setActive(index)}
       onMouseLeave={onMouseLeave}
       className={`relative inline-block cursor-pointer transition-opacity duration-200 // Changed transition target
-        font-rockwell font-bold text-3xl // Constant text size
+        font-rockwell font-bold text-xl sm:text-2xl md:text-3xl // Responsive size
         ${color} 
-        py-1 rounded-md align-baseline bg-transparent`}
+        py-0.5 sm:py-1 rounded-md align-baseline bg-transparent`}
     >
       {/* Motion span for background animation is commented out */}
       <ScribbleUnderline
         style="rough"
         color={resolvedUnderlineColor}
-        strokeWidth={8}
+        strokeWidth={6}
         opacity={underlineOpacity} // Conditional opacity
-        className="pb-2"
+        className="pb-1 sm:pb-2"
         variant="keyword"
       >
-        <span className="relative z-[2] px-1">{word}</span>
+        <span className="relative z-[2] px-0.5 sm:px-1">{word}</span>
       </ScribbleUnderline>
     </span>
   );
