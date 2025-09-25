@@ -17,7 +17,7 @@ const PAGE_MANUAL_CONTROLS = {
 
 export default function Home() {
   return (
-    <main className="relative">
+    <main className="relative h-screen flex flex-col overflow-hidden">
       <GridPattern
         width={40}
         height={40}
@@ -26,22 +26,24 @@ export default function Home() {
         className="absolute inset-0 h-full w-full fill-gray-900/30 stroke-gray-400/7 pointer-events-none z-15"
       />
       <NavBar />
-      <IntroSection />
+      <div className="flex-1 flex flex-col">
+        <IntroSection />
+      </div>
 
-      <div
+      {/* <div
         className={`${PAGE_MANUAL_CONTROLS.featuresSectionVerticalOffset}  max-w-7xl mx-[1rem] lg:mx-[1rem] xl:mx-[1rem] 2xl:mx-[5rem]`}
       >
         <FeaturesSection />
-      </div>
+      </div> */}
 
       {/* <section id="about" className="py-20 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-sentra-midnight-deck mb-8">About Us</h2>
-        <p className="text-sentra-midnight-deck">About section coming soon...</p>
+        <h2 className="text-3xl font-bold text-waygent-text-primary mb-8">About Us</h2>
+        <p className="text-waygent-text-primary">About section coming soon...</p>
       </section>
       
       <section id="book-demo" className="py-20 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-sentra-midnight-deck mb-8">Book a Demo</h2>
-        <p className="text-sentra-midnight-deck">Demo booking section coming soon...</p>
+        <h2 className="text-3xl font-bold text-waygent-text-primary mb-8">Book a Demo</h2>
+        <p className="text-waygent-text-primary">Demo booking section coming soon...</p>
       </section> */}
     </main>
   );

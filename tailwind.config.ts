@@ -17,11 +17,28 @@ const config: Config = {
         awesome: ["Awesome", "cursive"],
       },
       colors: {
-        "sentra-apricot-jet": "#E26F3C",
-        "sentra-midnight-deck": "#264653",
-        "sentra-travertine": "#E9C46A",
-        "sentra-dune-mist": "#EFE7DC",
-        "sentra-ocean-route": "#4A868C",
+        // Primary Brand Colors
+        "waygent-blue": "#3b82f6",
+        "waygent-orange": "#f59e0b",
+        "waygent-cream": "##FAF9F5",
+        "waygent-light-blue": "#EEF2FF",
+        
+        // Supporting Colors
+        "waygent-text-primary": "#000000",
+        "waygent-text-secondary": "rgba(0, 0, 0, 0.7)",
+        "waygent-text-muted": "#6B7280",
+        "waygent-white": "#FFFFFF",
+        
+        // Interactive States
+        "waygent-blue-hover": "#2563eb",
+        "waygent-orange-hover": "#d97706",
+        
+        // Legacy colors for backward compatibility (will be phased out)
+        "sentra-apricot-jet": "#f59e0b", // Maps to waygent-orange
+        "sentra-midnight-deck": "#000000", // Maps to waygent-text-primary
+        "sentra-travertine": "#FAF9F5", // Maps to waygent-cream
+        "sentra-dune-mist": "#FAF9F5", // Maps to waygent-cream
+        "sentra-ocean-route": "#3b82f6", // Maps to waygent-blue
       },
     },
   },

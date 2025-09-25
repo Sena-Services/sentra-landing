@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
 import { Keyword } from "./Keyword";
 import ScribbleUnderline from "./ScribbleUnderline";
 
@@ -16,28 +15,28 @@ const tokens = [
   {
     word: "end-to-end",
     definition:
-      "From the moment a customer inquires about a trip to the final reconciliation of accounts, Sentra handles every single workflow. Quote generation, booking management, payment processing, supplier coordination, document handling, customer communication, reporting, and financial reconciliation—all seamlessly integrated in one unified platform.",
-    color: "text-sentra-apricot-jet",
-    decorationColor: "decoration-sentra-apricot-jet",
-  },
-  {
-    word: "AI-centred",
-    definition:
-      "Our advanced AI engine transforms how you work by intelligently drafting personalized itineraries, suggesting profitable upsells based on customer preferences, providing instant customer support responses, optimizing pricing strategies, and automating routine tasks. Think of it as having an expert travel consultant and business analyst working 24/7 alongside your team.",
+      "From initial customer inquiry to final account reconciliation, Waygent handles every single business workflow. Customer management, order processing, inventory tracking, payment processing, supplier coordination, document handling, customer communication, reporting, and financial reconciliation—all seamlessly integrated in one unified platform.",
     color: "text-sentra-ocean-route",
     decorationColor: "decoration-sentra-ocean-route",
   },
   {
-    word: "B2B",
+    word: "AI-centred",
     definition:
-      "Built specifically for travel agencies and tour operators, not generic consumers. We understand complex mark-up structures, multi-tier commission systems, custom branding requirements, white-label solutions, corporate travel policies, group booking dynamics, and the intricate relationships between agencies, suppliers, and corporate clients.",
-    color: "text-sentra-apricot-jet",
-    decorationColor: "decoration-sentra-apricot-jet",
+      "Our advanced AI engine transforms how you work by intelligently analyzing customer data, suggesting profitable upsells based on customer preferences, providing instant customer support responses, optimizing pricing strategies, and automating routine tasks. Think of it as having an expert business analyst and operations manager working 24/7 alongside your team.",
+    color: "text-sentra-ocean-route",
+    decorationColor: "decoration-sentra-ocean-route",
+  },
+  {
+    word: "ERP",
+    definition:
+      "Enterprise Resource Planning system that integrates all core business processes including finance, human resources, supply chain, manufacturing, and customer relationship management. Built specifically for companies that need comprehensive business management, not just basic tools. We understand complex organizational structures, multi-department workflows, and enterprise-level requirements.",
+    color: "text-sentra-ocean-route",
+    decorationColor: "decoration-sentra-ocean-route",
   },
   {
     word: "all sizes",
     definition:
-      "Whether you're a solo travel agent just starting out, a mid-size agency managing hundreds of bookings monthly, or an enterprise consolidator handling thousands of transactions, Sentra automatically scales with your business. Our flexible pricing, modular features, and infrastructure grow seamlessly as you expand without any platform migrations or disruptions.",
+      "Whether you're a startup just getting off the ground, a mid-size company managing hundreds of transactions monthly, or an enterprise handling thousands of operations, Waygent automatically scales with your business. Our flexible pricing, modular features, and infrastructure grow seamlessly as you expand without any platform migrations or disruptions.",
     color: "text-sentra-ocean-route",
     decorationColor: "decoration-sentra-ocean-route",
   },
@@ -45,19 +44,28 @@ const tokens = [
 
 // Map Tailwind color classes to hex values
 const tailwindToHexColorMap: { [key: string]: string } = {
-  "text-sentra-ocean-route": "#4A868C", // Updated to match tailwind.config.ts
-  "text-sentra-apricot-jet": "#E26F3C", // Updated to match tailwind.config.ts
-  "text-sentra-midnight-deck": "#264653", // Unchanged
-  "text-sentra-dune-mist": "#EFE7DC", // Updated to match tailwind.config.ts
-  "text-sentra-travertine": "#E9C46A", // From tailwind.config.ts
-  // text-orange-800 will use FALLBACK_UNDERLINE_COLOR
+  // New Waygent colors
+  "text-waygent-blue": "#3b82f6",
+  "text-waygent-orange": "#f59e0b",
+  "text-waygent-text-primary": "#000000",
+  "text-waygent-text-secondary": "rgba(0, 0, 0, 0.7)",
+  "text-waygent-text-muted": "#6B7280",
+  
+  // Legacy colors (mapped to new values)
+  "text-sentra-ocean-route": "#3b82f6", // Maps to waygent-blue
+  "text-sentra-apricot-jet": "#f59e0b", // Maps to waygent-orange
+  "text-sentra-midnight-deck": "#000000", // Maps to waygent-text-primary
+  "text-sentra-dune-mist": "#FAF9F5", // Maps to waygent-cream
+  "text-sentra-travertine": "#FAF9F5", // Maps to waygent-cream
 };
-const FALLBACK_UNDERLINE_COLOR = "#E26F3C"; // This is now the same as text-sentra-apricot-jet
+const FALLBACK_UNDERLINE_COLOR = "#f59e0b"; // This is now the same as waygent-orange
 
 export default function IntroSection() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [paused, setPaused] = useState(false);
   const [lastHoveredIdx, setLastHoveredIdx] = useState(-1);
+  const [definitionMaxHeight, setDefinitionMaxHeight] = useState(0);
+  const hiddenRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
     if (paused) return;
@@ -67,6 +75,23 @@ export default function IntroSection() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused]);
+
+  useEffect(() => {
+    const measure = () => {
+      const max = hiddenRefs.current.reduce((acc, el) => {
+        const h = el?.offsetHeight ?? 0;
+        return h > acc ? h : acc;
+      }, 0);
+      if (max > 0) setDefinitionMaxHeight(max);
+    };
+    // initial measure after fonts render
+    const t = setTimeout(measure, 0);
+    window.addEventListener("resize", measure);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
 
   const activeToken = activeIdx >= 0 ? tokens[activeIdx] : null;
 
@@ -81,7 +106,7 @@ export default function IntroSection() {
   const MANUAL_CONTROLS = {
     imageSrc: "/hero2.png",
     // LEFT CONTENT POSITIONING
-    leftVertical: "mt-[3rem] lg:mt-[3rem] xl:mt-[4rem] 2xl:mt-[-4rem] ", // Move left content up/down: 'mt-[-4rem]' (up), 'mt-[2rem]' (down)
+    leftVertical: "mt-6 md:mt-8 lg:mt-10", // Push content down from sticky navbar
     leftHorizontal: "ml-0 lg:ml-[5rem] xl:ml-[1.5rem] 2xl:ml-[5rem]", // Move left content left/right: 'ml-[-2rem]' (left), 'ml-[2rem]' (right)
 
     // RIGHT IMAGE POSITIONING
@@ -98,8 +123,8 @@ export default function IntroSection() {
     definitionSize: "text-lg md:text-xl lg:text-2xl", // Definition text size: 'text-base md:text-lg lg:text-xl' (smaller), 'text-xl md:text-2xl lg:text-3xl' (larger)
     definitionKeywordSize: "text-xl lg:text-2xl", // DEPRECATED by direct styling, kept for reference
     definitionStyle: "font-medium", // REMOVED italic, kept for reference
-    titleMargin: "mb-8 lg:mb-10", // Space after title: 'mb-4 lg:mb-6' (smaller), 'mb-12 lg:mb-16' (larger)
-    descriptionMargin: "mb-8 lg:mb-10", // Space after description: 'mb-4 lg:mb-6' (smaller), 'mb-12 lg:mb-16' (larger)
+    titleMargin: "mb-8 md:mb-10 lg:mb-12", // More space below the title
+    descriptionMargin: "mt-6 mb-2 md:mt-8 md:mb-3 lg:mt-10 lg:mb-4", // Bring description closer to definition
     definitionSpacing: "mt-3", // Space between keyword and definition: 'mt-2' (smaller), 'mt-4' (larger)
 
     // IMAGE SIZES
@@ -124,10 +149,10 @@ export default function IntroSection() {
   };
 
   return (
-    <section id="intro" className="relative isolate h-screen">
-      <div className="h-full grid lg:grid-cols-2 items-start lg:items-center">
+    <section id="intro" className="relative isolate h-full overflow-hidden">
+      <div className="h-full flex items-center justify-center w-full">
         <div
-          className={`relative z-20 mx-auto max-w-7xl px-6 lg:pl-8 w-full ${MANUAL_CONTROLS.leftWidth}`}
+          className={`relative z-20 mx-auto max-w-4xl px-6 w-full text-center`}
         >
           <div
             className={`${MANUAL_CONTROLS.contentPadding} ${MANUAL_CONTROLS.leftVertical} ${MANUAL_CONTROLS.leftHorizontal}`}
@@ -146,7 +171,7 @@ export default function IntroSection() {
                 variant="default"
               >
                 <span className="text-sentra-apricot-jet text-[1.8em]">
-                  Sentra
+                  Waygent
                 </span>
               </ScribbleUnderline>
               <span className="text-sentra-apricot-jet">?</span>
@@ -159,7 +184,7 @@ export default function IntroSection() {
                 <p
                   className={`${MANUAL_CONTROLS.answerLineHeight} font-rockwell`}
                 >
-                  <span className="font-rockwell">Sentra is a </span>
+                  <span className="font-rockwell">Waygent is a </span>
                   <Keyword
                     word={tokens[0].word}
                     index={0}
@@ -213,7 +238,7 @@ export default function IntroSection() {
                   />
                   {", "}
                   <span className="font-rockwell">
-                    platform that caters to travel agencies of
+                    for companies of
                   </span>{" "}
                   <Keyword
                     word={tokens[4].word}
@@ -230,56 +255,82 @@ export default function IntroSection() {
                   <span className="font-rockwell">!</span>
                 </p>
               </div>
-              {/* Definition block is now INSIDE the relative div */}
-              <div className="min-h-[12rem] lg:min-h-[16rem] xl:min-h-[22rem]">
-                {activeToken && (
-                  <div
-                    className={`${MANUAL_CONTROLS.definitionSize} leading-relaxed`}
-                  >
-                    <ScribbleUnderline
-                      style="rough"
-                      color={
-                        tailwindToHexColorMap[activeToken.color] ||
-                        FALLBACK_UNDERLINE_COLOR
-                      }
-                      strokeWidth={10}
-                      opacity={0.9}
-                      className="pb-1"
-                      variant="keyword"
+              {/* Definition block with fixed wrapper height to prevent layout shift */}
+              <div
+                className="relative min-h-[6rem] lg:min-h-[8rem] xl:min-h-[10rem]"
+                style={{ height: definitionMaxHeight ? `${definitionMaxHeight}px` : undefined }}
+              >
+                <div className="absolute inset-0">
+                  {activeToken && (
+                    <div
+                      className={`${MANUAL_CONTROLS.definitionSize} leading-relaxed`}
                     >
-                      <span
-                        className={`${activeToken.color} font-rockwell font-bold text-3xl`}
+                      <ScribbleUnderline
+                        style="rough"
+                        color={
+                          tailwindToHexColorMap[activeToken.color] ||
+                          FALLBACK_UNDERLINE_COLOR
+                        }
+                        strokeWidth={10}
+                        opacity={0.9}
+                        className="pb-1"
+                        variant="keyword"
                       >
-                        {activeToken.word}:
-                      </span>
-                    </ScribbleUnderline>
-                    <p
-                      className={`text-sentra-midnight-deck ${MANUAL_CONTROLS.definitionSpacing} font-medium leading-relaxed font-rockwell bg-transparent`}
+                        <span
+                          className={`${activeToken.color} font-rockwell font-bold text-3xl`}
+                        >
+                          {activeToken.word}:
+                        </span>
+                      </ScribbleUnderline>
+                      <p
+                        className={`text-sentra-midnight-deck ${MANUAL_CONTROLS.definitionSpacing} font-medium leading-relaxed font-rockwell bg-transparent`}
+                      >
+                        {activeToken.definition}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Hidden measurer to compute the tallest definition for the current viewport */}
+                <div
+                  className="absolute opacity-0 pointer-events-none -z-10 inset-0"
+                  aria-hidden
+                >
+                  {tokens.map((t, i) => (
+                    <div
+                      key={t.word}
+                      ref={(el) => {
+                        hiddenRefs.current[i] = el;
+                      }}
+                      className={`${MANUAL_CONTROLS.definitionSize} leading-relaxed`}
                     >
-                      {activeToken.definition}
-                    </p>
-                  </div>
-                )}
+                      <ScribbleUnderline
+                        style="rough"
+                        color={
+                          tailwindToHexColorMap[t.color] || FALLBACK_UNDERLINE_COLOR
+                        }
+                        strokeWidth={10}
+                        opacity={0.9}
+                        className="pb-1"
+                        variant="keyword"
+                      >
+                        <span
+                          className={`${t.color} font-rockwell font-bold text-3xl`}
+                        >
+                          {t.word}:
+                        </span>
+                      </ScribbleUnderline>
+                      <p
+                        className={`text-sentra-midnight-deck ${MANUAL_CONTROLS.definitionSpacing} font-medium leading-relaxed font-rockwell bg-transparent`}
+                      >
+                        {t.definition}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>{" "}
             {/* End of wrapper div for background pattern */}
-          </div>
-        </div>
-
-        <div
-          className={`relative z-10 flex justify-center lg:justify-end items-center h-full lg:pl-8 ${MANUAL_CONTROLS.rightWidth}`}
-        >
-          <div
-            className={`bg-sentra-travertine rounded-full ${MANUAL_CONTROLS.imagePadding} ${MANUAL_CONTROLS.rightHorizontal} ${MANUAL_CONTROLS.rightVertical}`}
-          >
-            <Image
-              src={`${MANUAL_CONTROLS.imageSrc}`}
-              alt="Orange jet swooping over a teal globe"
-              width={1500}
-              height={1500}
-              priority
-              className={`${MANUAL_CONTROLS.imageSize} select-none pointer-events-none`}
-            />
           </div>
         </div>
       </div>

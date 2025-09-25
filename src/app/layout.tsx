@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Sentra",
-  description: "Sentra: AI-centred B2B travel platform",
+  title: "Waygent",
+  description: "Waygent: AI-centred B2B travel platform",
 };
 
 export default function RootLayout({
