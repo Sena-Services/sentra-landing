@@ -63,9 +63,8 @@ export default function SignupPage() {
       const data = await response.json();
 
       if (data.message?.success) {
-        // Redirect to CRM frontend
-        const redirectUrl = process.env.NEXT_PUBLIC_CRM_FRONTEND_URL || "http://localhost:8080";
-        window.location.href = redirectUrl;
+        // Redirect to environment selector
+        window.location.href = "/environment-selector";
       } else {
         setError(data.message?.error || "Registration failed");
       }

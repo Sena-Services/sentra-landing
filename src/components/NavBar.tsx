@@ -1,5 +1,12 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import UserAvatar from "./UserAvatar";
+import { checkAuth, type User } from "@/lib/auth";
+import { Database, Home } from "lucide-react";
 
 const links: { href: string; label: string }[] = [
   // { href: "#features", label: "Features" },
@@ -7,6 +14,23 @@ const links: { href: string; label: string }[] = [
 ];
 
 export default function NavBar() {
+  const pathname = usePathname();
+  const [user, setUser] = useState<User | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  const isOnEnvironmentSelector = pathname === "/environment-selector";
+
+  useEffect(() => {
+    const verifyAuth = async () => {
+      const authResult = await checkAuth();
+      if (authResult.authenticated && authResult.user) {
+        setUser(authResult.user);
+      }
+      setIsCheckingAuth(false);
+    };
+
+    verifyAuth();
+  }, []);
   // 🎯 NAVBAR MANUAL CONTROLS - Adjust these values to control navbar positioning and spacing
   const NAVBAR_CONTROLS = {
     // NAVBAR POSITIONING & SPACING
@@ -65,50 +89,81 @@ export default function NavBar() {
             ))}
           </ul>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons or Logged In Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Login Button */}
-            <Link
-              href="/login"
-              className={`inline-flex items-center justify-center px-3 py-1.5 h-7 rounded-md transition-all duration-300 ease-out
-                         whitespace-nowrap text-sm font-medium border border-gray-300
-                         bg-transparent text-gray-600 cursor-pointer outline-none relative transform translate-y-0
-                         shadow-none leading-none font-sans hover:bg-gray-50 hover:text-gray-800
-                         hover:border-gray-400 hover:-translate-y-0.5 hover:shadow-sm hover:shadow-gray-100
-                         active:bg-gray-100 active:text-gray-900 active:border-gray-500 active:translate-y-0
-                         active:scale-95 active:shadow-sm active:shadow-gray-200
-                         focus-visible:shadow-md focus-visible:shadow-gray-200 focus-visible:outline-none`}
-              style={{
-                boxShadow: 'none'
-              }}
-            >
-              <span className="leading-none">Log In</span>
-            </Link>
+            {!isCheckingAuth && !user && (
+              <>
+                {/* Login Button */}
+                <Link
+                  href="/login"
+                  className={`inline-flex items-center justify-center px-3 py-1.5 h-7 rounded-md transition-all duration-300 ease-out
+                             whitespace-nowrap text-sm font-medium border border-gray-300
+                             bg-transparent text-gray-600 cursor-pointer outline-none relative transform translate-y-0
+                             shadow-none leading-none font-sans hover:bg-gray-50 hover:text-gray-800
+                             hover:border-gray-400 hover:-translate-y-0.5 hover:shadow-sm hover:shadow-gray-100
+                             active:bg-gray-100 active:text-gray-900 active:border-gray-500 active:translate-y-0
+                             active:scale-95 active:shadow-sm active:shadow-gray-200
+                             focus-visible:shadow-md focus-visible:shadow-gray-200 focus-visible:outline-none`}
+                  style={{
+                    boxShadow: 'none'
+                  }}
+                >
+                  <span className="leading-none">Log In</span>
+                </Link>
 
-            {/* Sign Up Button */}
-            <Link
-              href="/signup"
-              className={`inline-flex items-center justify-center px-3 py-1.5 h-7 rounded-md transition-all duration-300 ease-out
-                         whitespace-nowrap text-sm font-medium border-2 border-waygent-orange
-                         bg-waygent-orange text-white cursor-pointer outline-none relative transform translate-y-0
-                         shadow-sm leading-none font-sans hover:bg-waygent-orange hover:border-waygent-orange
-                         hover:-translate-y-0.5 hover:shadow-md hover:shadow-orange-200
-                         active:bg-waygent-orange active:border-waygent-orange active:translate-y-0
-                         active:scale-95 active:shadow-sm active:shadow-orange-300
-                         focus-visible:shadow-lg focus-visible:shadow-orange-300 focus-visible:outline-none`}
-              style={{
-                boxShadow: '0 1px 3px 0 rgba(245, 158, 11, 0.1), 0 1px 2px 0 rgba(245, 158, 11, 0.06)'
-              }}
-            >
-              <div className="flex items-center gap-1.5">
-                <div className="w-4 h-4 flex-shrink-0 transition-all duration-300 ease-out hidden xs:block sm:block">
-                  <svg className="w-4 h-4 transition-all duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                </div>
-                <span className="leading-none">Sign Up</span>
-              </div>
-            </Link>
+                {/* Sign Up Button */}
+                <Link
+                  href="/signup"
+                  className={`inline-flex items-center justify-center px-3 py-1.5 h-7 rounded-md transition-all duration-300 ease-out
+                             whitespace-nowrap text-sm font-medium border-2 border-waygent-orange
+                             bg-waygent-orange text-white cursor-pointer outline-none relative transform translate-y-0
+                             shadow-sm leading-none font-sans hover:bg-waygent-orange hover:border-waygent-orange
+                             hover:-translate-y-0.5 hover:shadow-md hover:shadow-orange-200
+                             active:bg-waygent-orange active:border-waygent-orange active:translate-y-0
+                             active:scale-95 active:shadow-sm active:shadow-orange-300
+                             focus-visible:shadow-lg focus-visible:shadow-orange-300 focus-visible:outline-none`}
+                  style={{
+                    boxShadow: '0 1px 3px 0 rgba(245, 158, 11, 0.1), 0 1px 2px 0 rgba(245, 158, 11, 0.06)'
+                  }}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-4 h-4 flex-shrink-0 transition-all duration-300 ease-out hidden xs:block sm:block">
+                      <svg className="w-4 h-4 transition-all duration-300 ease-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                    </div>
+                    <span className="leading-none">Sign Up</span>
+                  </div>
+                </Link>
+              </>
+            )}
+
+            {!isCheckingAuth && user && (
+              <>
+                {/* Environment/Home Button */}
+                <Link
+                  href={isOnEnvironmentSelector ? "/" : "/environment-selector"}
+                  className="group inline-flex items-center justify-center px-3 py-1.5 h-7 rounded-md transition-all duration-300 ease-out whitespace-nowrap text-sm font-medium border border-gray-300 bg-white/50 backdrop-blur-sm cursor-pointer outline-none relative transform translate-y-0 shadow-none leading-none font-sans hover:border-orange-300 hover:bg-orange-50/50 hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0 active:scale-95 focus-visible:outline-none"
+                >
+                  <div className="flex items-center gap-1.5">
+                    {isOnEnvironmentSelector ? (
+                      <>
+                        <Home className="w-4 h-4 text-gray-600 transition-colors duration-300 group-hover:text-waygent-orange" />
+                        <span className="leading-none text-gray-700 transition-colors duration-300 group-hover:text-waygent-orange">Home</span>
+                      </>
+                    ) : (
+                      <>
+                        <Database className="w-4 h-4 text-gray-600 transition-colors duration-300 group-hover:text-waygent-orange group-hover:fill-waygent-orange/20" />
+                        <span className="leading-none text-gray-700 transition-colors duration-300 group-hover:text-waygent-orange">ERP Environment</span>
+                      </>
+                    )}
+                  </div>
+                </Link>
+
+                {/* User Avatar */}
+                <UserAvatar user={user} />
+              </>
+            )}
           </div>
         </div>
       </nav>

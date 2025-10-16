@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -17,8 +19,11 @@ export default function LoginPage() {
 
     try {
       // Call Frappe login API
+      const frappeUrl = process.env.NEXT_PUBLIC_FRAPPE_URL || "http://localhost:8000";
+      console.log("[Login] Attempting login to:", frappeUrl);
+
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_FRAPPE_URL || "http://localhost:8000"}/api/method/crm.api.user_auth.login`,
+        `${frappeUrl}/api/method/crm.api.user_auth.login`,
         {
           method: "POST",
           headers: {
@@ -32,12 +37,14 @@ export default function LoginPage() {
         }
       );
 
+      console.log("[Login] Response status:", response.status);
       const data = await response.json();
+      console.log("[Login] Response data:", data);
 
       if (data.message?.success) {
-        // Redirect to CRM frontend
-        const redirectUrl = process.env.NEXT_PUBLIC_CRM_FRONTEND_URL || "http://localhost:8080";
-        window.location.href = redirectUrl;
+        console.log("[Login] Login successful, redirecting to environment selector");
+        // Use Next.js router for client-side navigation
+        router.push("/environment-selector");
       } else {
         setError(data.message?.error || "Login failed");
       }
