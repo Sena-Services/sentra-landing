@@ -26,16 +26,8 @@ export default function EnvironmentSelectorPage() {
         return;
       }
 
-      console.log('[EnvironmentSelector] User authenticated, loading environment');
-      // Load current environment from localStorage
-      const env = getEnvironment();
-      if (env) {
-        console.log('[EnvironmentSelector] Current environment from localStorage:', env);
-        setCurrentEnvironment(env);
-      } else {
-        console.log('[EnvironmentSelector] No environment in localStorage');
-      }
-
+      console.log('[EnvironmentSelector] User authenticated');
+      // Don't load environment from localStorage - let user explicitly select
       setIsCheckingAuth(false);
     };
 
@@ -47,11 +39,11 @@ export default function EnvironmentSelectorPage() {
     saveEnvironment(environmentName);
     setCurrentEnvironment(environmentName);
 
-    // Redirect to frontend builder with environment as URL parameter
+    // Redirect to frontend live view with environment as URL parameter
     // The frontend will read this and save to its own localStorage
     const frontendUrl =
       process.env.NEXT_PUBLIC_CRM_FRONTEND_URL || "http://localhost:8080";
-    window.location.href = `${frontendUrl}/crm/builder?env=${encodeURIComponent(environmentName)}`;
+    window.location.href = `${frontendUrl}/crm/live?env=${encodeURIComponent(environmentName)}`;
   };
 
   if (isCheckingAuth) {
